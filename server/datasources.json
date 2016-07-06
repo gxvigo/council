@@ -1,0 +1,11 @@
+{
+  "mySQL_bluemix-mac": {
+    "host": "cap-au-sg-prd-05.integration.ibmcloud.com",
+    "port": 15047,
+    "database": "demo",
+    "password": "password",
+    "name": "mySQL_bluemix-mac",
+    "connector": "mysql",
+    "user": "root"
+  }
+}

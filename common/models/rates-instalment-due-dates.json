@@ -1,0 +1,34 @@
+{
+  "name": "rates_instalment_due_dates",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "instalment": {
+      "type": "number",
+      "id": true,
+      "required": true,
+      "mysql": {
+        "columnName": "instalment",
+        "dataType": "int",
+        "dataLength": 11,
+        "nullable": "N"
+      }
+    },
+    "paymentDueDate": {
+      "type": "date",
+      "required": true,
+      "mysql": {
+        "columnName": "payment_due_date",
+        "dataType": "date",
+        "nullable": "N"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

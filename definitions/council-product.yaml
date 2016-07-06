@@ -1,0 +1,21 @@
+product: 1.0.0
+info:
+  name: council
+  title: council
+  version: 1.0.7
+apis:
+  council:
+    $ref: council.yaml
+visibility:
+  view:
+    type: public
+  subscribe:
+    type: authenticated
+plans:
+  default:
+    title: Default Plan
+    description: Default Plan
+    approval: false
+    rate-limit:
+      value: 100/hour
+      hard-limit: false
