@@ -14,7 +14,11 @@
     ]
   },
   "rates_instalment_due_dates": {
-    "dataSource": "mySQL_bluemix-mac",
+    "dataSource": "mySQL_mac",
+    "public": true
+  },
+  "property_rates_valuations": {
+    "dataSource": "mySQL_mac",
     "public": true
   }
 }

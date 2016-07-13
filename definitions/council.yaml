@@ -1,4 +1,25 @@
 paths:
+  /property_rates_valuations:
+    get:
+      tags:
+        - property_rates_valuations
+      summary: Find all instances of the model matched by filter from the data source.
+      operationId: property_rates_valuations.find
+      parameters:
+        - name: filter
+          in: query
+          description: 'Filter defining fields, where, include, order, offset, and limit'
+          required: false
+          type: string
+          format: JSON
+      responses:
+        '200':
+          description: Request was successful
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/property_rates_valuations'
+      deprecated: false
   /rates_instalment_due_dates:
     get:
       tags:
@@ -21,6 +42,39 @@ paths:
               $ref: '#/definitions/rates_instalment_due_dates'
       deprecated: false
 definitions:
+  property_rates_valuations:
+    properties:
+      address:
+        type: string
+      assessmentNumber:
+        type: number
+        format: double
+      certifiedOfTitleNumber:
+        type: string
+      clientId:
+        type: string
+      landArea:
+        type: number
+        format: double
+      lastestCapitalValue:
+        type: string
+      latestImrovementValue:
+        type: string
+      latestLandValue:
+        type: string
+      valuationAsAtDate:
+        type: string
+    required:
+      - address
+      - assessmentNumber
+      - certifiedOfTitleNumber
+      - clientId
+      - landArea
+      - lastestCapitalValue
+      - latestImrovementValue
+      - latestLandValue
+      - valuationAsAtDate
+    additionalProperties: false
   rates_instalment_due_dates:
     properties:
       instalment:
@@ -51,10 +105,6 @@ securityDefinitions:
     type: apiKey
     in: header
     name: X-IBM-Client-Id
-  clientSecretHeader:
-    in: header
-    name: X-IBM-Client-Secret
-    type: apiKey
 security:
   - clientIdHeader: []
 x-ibm-configuration:
@@ -62,63 +112,14 @@ x-ibm-configuration:
   enforced: true
   cors:
     enabled: true
-  catalogs:
-    apic-dev:
-      properties:
-        runtime-url: $(TARGET_URL)
-    sb:
-      properties:
-        runtime-url: 'http://localhost:4001'
+  catalogs: {}
   assembly:
     execute:
-      - activity-log:
-          title: activity-log
-          content: payload
-          error-content: payload
-      - gatewayscript:
-          title: gs-sendLog2Loggly
-          source: |-
-            /*
-            Jo Torsmyr
-            https://github.com/tverilytt/IBMAPIConnect
-            GatewayScript for sending IBM API Connect requests to Loggly.
-            */
-
-            var logglyCustomerToken = '113d5ab4-98c9-4d54-aaf0-6a2d81153ebc';
-
-            var urlopen = require ('urlopen');
-            var request = apim.getvariable('request');
-
-            var payload;
-
-            session.INPUT.readAsBuffer(function(error, buffer) {
-              if (error) payload = '';
-              else 
-                if (buffer.length > 0) payload = buffer.toString();
-                else payload = '';
-
-              var logData = JSON.stringify(request) + payload;
-              sendLogData(logData);
-            });
-
-            function sendLogData(data) {
-              var options = {
-                target : 'http://logs-01.loggly.com/inputs/' + logglyCustomerToken + '/tag/https',
-                method : 'POST',
-                contentType : 'application/json',
-                data : data
-              };
-
-              urlopen.open(options, function(error, response) {
-                if (error) throw error;
-              });
-            }
       - invoke:
-          target-url: $(target_server)$(request.path)
-  gateway: datapower-gateway
+          target-url: $(runtime-url)$(request.path)$(request.search)
+  gateway: micro-gateway
   properties:
     target_server:
-      value: >-
-        http://apiconnect-31722af8-dde4-4f00-a19e-1eba02898ac5.giovanninzibmcom-acc-dev.apic.au-syd.mybluemix.net
+      value: 'http://localhost'
       description: ''
       encoded: false

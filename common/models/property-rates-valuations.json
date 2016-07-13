@@ -1,0 +1,50 @@
+{
+  "name": "property_rates_valuations",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "assessmentNumber": {
+      "type": "number",
+      "required": true
+    },
+    "certifiedOfTitleNumber": {
+      "type": "string",
+      "required": true
+    },
+    "clientId": {
+      "type": "string",
+      "required": true
+    },
+    "landArea": {
+      "type": "number",
+      "required": true
+    },
+    "lastestCapitalValue": {
+      "type": "string",
+      "required": true
+    },
+    "latestImrovementValue": {
+      "type": "string",
+      "required": true
+    },
+    "latestLandValue": {
+      "type": "string",
+      "required": true
+    },
+    "valuationAsAtDate": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
